@@ -1,0 +1,51 @@
+﻿<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $.get("/tomogachiStatus", function (response) {
+            updateText(
+                response.fullness, response.happiness, response.meals, response.energy, response.update
+            );
+
+            $(".Feed").click(function () {
+                $.post("/tomogachiFeed", function (response) {
+                    updateText(
+                        response.fullness, response.happiness, response.meals, response.energy, response.update
+                    );
+                });
+            })
+
+            $(".Play").click(function () {
+                $.post("/tomogachiPlay", function (response) {
+                    updateText(
+                        response.fullness, response.happiness, response.meals, response.energy, response.update
+                    );
+                });
+            })
+        })
+    })
+
+    function updateText(fullness, happiness, meals, energy, update) {
+        $(".Fullness").text("Fullness: " + fullness)
+        $(".Happiness").text("Happiness: " + happiness)
+        $(".Meals").text("Meals: " + meals)
+        $(".Energy").text("Energy: " + energy)
+        $(".update").text(update)
+    }
+</script>
+
+<div class="container">
+    <div class="stats">
+        <span class="Fullness col-md-3"></span>
+        <span class="Happiness col-md-3"></span>
+        <span class="Meals col-md-3"></span>
+        <span class="Energy col-md-3"></span>
+    </div>
+    <div class="Status"></div>
+    <p class="update"></p>
+    <button class="Feed">Feed</button>
+    <button class="Play">Play</button>
+    <button class="Work">Work</button>
+    <button class="Sleep">Sleep</button>
+</div>

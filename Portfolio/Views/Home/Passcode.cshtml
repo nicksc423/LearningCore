@@ -1,0 +1,28 @@
+﻿@section scripts {
+    <script>
+
+        $(document).ready(function () {  
+
+            $("button").click(function () {
+                updateText();
+            })
+
+            updateText()
+      
+        })
+
+        function updateText() {
+            $.get("/generate", function (response) {
+                console.log(response.viewCount)
+                $(".title").text("Random Passcode (passcode #" + response.viewCount + ")")
+                $(".passcode").text(response.code)
+            })
+        }
+    </script>
+}
+
+<div class="container">
+    <p class="title"></p>
+    <span class="passcode"></span>
+    <button>Generate</button>
+</div>
